@@ -16,6 +16,7 @@ public class QuizActivity extends ActionBarActivity {
 
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "question_key";
+    public static final String EXTRA_ANSWER = "com.sviat.k.geoquiz.ap.answer_value";
 
     private Button mButtonTrue;
     private Button mButtonFalse;
@@ -57,7 +58,9 @@ public class QuizActivity extends ActionBarActivity {
         mButtonShowAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(QuizActivity.this, ShowAnswerActivity.class));
+                Intent intent = new Intent(QuizActivity.this, ShowAnswerActivity.class);
+                intent.putExtra(EXTRA_ANSWER, mQuestionBank[mCurrentIndex].getAnswer());
+                startActivity(intent);
             }
         });
 
