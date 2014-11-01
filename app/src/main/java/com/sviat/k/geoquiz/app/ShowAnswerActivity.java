@@ -4,14 +4,34 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 
 public class ShowAnswerActivity extends ActionBarActivity {
+
+    private boolean mAnswer = false;
+    private Button mButtonAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_answer);
+
+        mAnswer = getIntent().getBooleanExtra(QuizActivity.EXTRA_ANSWER, false);
+
+        mButtonAnswer = (Button) findViewById(R.id.showAnswerButton);
+        mButtonAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mAnswer) {
+                    Toast.makeText(ShowAnswerActivity.this, R.string.cheat_answer_true, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ShowAnswerActivity.this, R.string.cheat_answer_false, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
 
