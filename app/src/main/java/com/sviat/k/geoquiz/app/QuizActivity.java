@@ -34,6 +34,7 @@ public class QuizActivity extends ActionBarActivity {
     };
 
     private int mCurrentIndex = 0;
+    private boolean mIsCheated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class QuizActivity extends ActionBarActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(QuizActivity.this, ShowAnswerActivity.class);
                 intent.putExtra(EXTRA_ANSWER, mQuestionBank[mCurrentIndex].getAnswer());
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -135,6 +136,16 @@ public class QuizActivity extends ActionBarActivity {
         outState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG, String.format("requestCode = %d, resultCode = %d", requestCode, resultCode));
+        if (data != null) {
+            mIsCheated = data.getBooleanExtra(ShowAnswerActivity.EXTRA_ANSWER_SHOWN, false);
+        }
+    }
+
     private class onAnswerClick implements View.OnClickListener {
         private boolean mAnswer;
 
@@ -144,6 +155,10 @@ public class QuizActivity extends ActionBarActivity {
 
         @Override
         public void onClick(View v) {
+            if (mIsCheated) {
+                Toast.makeText(QuizActivity.this, R.string.cheated_text, Toast.LENGTH_SHORT).show();
+            }
+
             if (mQuestionBank[mCurrentIndex].getAnswer() == mAnswer) {
                 Toast.makeText(QuizActivity.this, R.string.toast_correct, Toast.LENGTH_SHORT).show();
             } else {

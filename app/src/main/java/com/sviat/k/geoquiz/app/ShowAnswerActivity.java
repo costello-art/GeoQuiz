@@ -1,7 +1,9 @@
 package com.sviat.k.geoquiz.app;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +12,8 @@ import android.widget.Toast;
 
 
 public class ShowAnswerActivity extends ActionBarActivity {
+
+    public static final String EXTRA_ANSWER_SHOWN = "com.sviat.k.geoquiz.app.answer_shown";
 
     private boolean mAnswer = false;
     private Button mButtonAnswer;
@@ -30,10 +34,17 @@ public class ShowAnswerActivity extends ActionBarActivity {
                 } else {
                     Toast.makeText(ShowAnswerActivity.this, R.string.cheat_answer_false, Toast.LENGTH_SHORT).show();
                 }
+
+                setCheated(true);
             }
         });
     }
 
+    private void setCheated(boolean cheated) {
+        Intent returnData = new Intent();
+        returnData.putExtra(EXTRA_ANSWER_SHOWN, cheated);
+        setResult(RESULT_OK, returnData);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

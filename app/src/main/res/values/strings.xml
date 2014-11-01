@@ -20,5 +20,6 @@
     <string name="show_answer_button">Show me the answer!</string>
     <string name="cheat_answer_false">You cheated. Answer is FALSE</string>
     <string name="cheat_answer_true">You cheated. Answer is TRUE</string>
+    <string name="cheated_text">You have been cheated.</string>
 
 </resources>
