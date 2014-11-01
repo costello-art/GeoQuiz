@@ -1,5 +1,6 @@
 package com.sviat.k.geoquiz.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ public class QuizActivity extends ActionBarActivity {
 
     private Button mButtonTrue;
     private Button mButtonFalse;
+    private Button mButtonShowAnswer;
 
     private Button mNextButton;
     private TextView mQuestionTextView;
@@ -48,9 +50,16 @@ public class QuizActivity extends ActionBarActivity {
         mButtonTrue = (Button) findViewById(R.id.button_true);
         mButtonFalse = (Button) findViewById(R.id.button_false);
         mNextButton = (Button) findViewById(R.id.button_next);
+        mButtonShowAnswer = (Button) findViewById(R.id.button_show_answer);
 
         mButtonTrue.setOnClickListener(new onAnswerClick(true));
         mButtonFalse.setOnClickListener(new onAnswerClick(false));
+        mButtonShowAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(QuizActivity.this, ShowAnswerActivity.class));
+            }
+        });
 
         mQuestionTextView = (TextView) findViewById(R.id.text_question_text);
         int question = mQuestionBank[mCurrentIndex].getQuestion();
